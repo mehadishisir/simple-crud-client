@@ -6,6 +6,7 @@ import { createBrowserRouter } from "react-router";
 import { RouterProvider } from "react-router/dom";
 import MainLayout from "./Layout/MainLayout.jsx";
 import UserDetails from "./components/UserDetails.jsx";
+import editUser from "./components/editUser.jsx";
 
 const router = createBrowserRouter([
   {
@@ -20,11 +21,18 @@ const router = createBrowserRouter([
         },
         Component: UserDetails,
       },
+      {
+        path: "/users/:id/edit",
+        loader: ({ params }) => {
+          return fetch(`http://localhost:3000/users/${params.id}`);
+        },
+        Component: editUser,
+      },
     ],
   },
 ]);
 createRoot(document.getElementById("root")).render(
   <StrictMode>
-    <RouterProvider router={router} />,
+    <RouterProvider router={router} />
   </StrictMode>,
 );
